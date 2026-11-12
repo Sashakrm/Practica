@@ -1,11 +1,13 @@
+import { Link } from "react-router-dom";
+
 function NavItem({ label, path }) {
   return (
-    <a
-      href={path}
+    <Link
+      to={path}
       className="text-sm text-gray-600 transition-colors hover:text-gray-950"
     >
       {label}
-    </a>
+    </Link>
   );
 }
 
