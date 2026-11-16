@@ -3,17 +3,11 @@ import Footer from "../components/Footer/Footer";
 
 function Layout({ children }) {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="site-layout">
       <Header />
-
-
-      <main>
-        {children}
-      </main>
-
+      <main>{children}</main>
       <Footer />
     </div>
   );
 }
-
 export default Layout;

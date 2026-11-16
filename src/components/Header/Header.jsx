@@ -1,25 +1,18 @@
+import { Link } from "react-router-dom";
 import Brand from "./Brand";
 import Navigation from "./Navigation";
-import HeaderActions from "./HeaderActions"
-import {Link} from "react-router";
+import HeaderActions from "./HeaderActions";
 
 function Header() {
-  return (
-    <header className="border-b border-gray-200 bg-white">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-        <div className="flex items-center gap-8">
-          <Link to="/">
-            <Brand name="Витрина" />
-          </Link>
-
-          <Navigation />
-        </div>
-
-
-        <HeaderActions />
-      </div>
-    </header>
-  );
+    return (
+        <header className="site-header">
+            <div className="header-announce">✳ &nbsp; С любовью печём каждый день &nbsp; · &nbsp; Свежая выпечка к вашему завтраку</div>
+            <div className="site-header-inner">
+                <Link to="/" aria-label="Тёплый хлеб — на главную"><Brand /></Link>
+                <Navigation />
+                <HeaderActions />
+            </div>
+        </header>
+    );
 }
-
-export default Header
+export default Header;

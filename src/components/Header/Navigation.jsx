@@ -1,30 +1,12 @@
-import NavItem from "./NavItem";
-
+import { NavLink } from "react-router-dom";
 
 function Navigation() {
-  const navigationItems = [
-    {
-      label: "Главная",
-      path: "/"
-    },
-    {
-      label: "Товары",
-      path: "/products"
-    }
-  ];
-
-
-  return (
-    <nav className="flex items-center gap-6">
-      {navigationItems.map((item) => (
-        <NavItem
-          key={item.path}
-          label={item.label}
-          path={item.path}
-        />
-      ))}
-    </nav>
-  );
+    return (
+        <nav aria-label="Основное меню" className="main-nav">
+            <NavLink to="/" end className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>Главная</NavLink>
+            <NavLink to="/products" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>Каталог</NavLink>
+            <a className="nav-link" href="/#about">О пекарне</a>
+        </nav>
+    );
 }
-
 export default Navigation;

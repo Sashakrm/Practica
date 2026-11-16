@@ -1,58 +1,41 @@
 import { Link } from "react-router-dom";
-import { CATEGORY_ORDER, photoUrl, products } from "../../data/popular";
+import { CATEGORY_ORDER, CATEGORY_DESCRIPTIONS, photoUrl } from "../../data/popular";
+import { useProducts } from "../../hooks/useProducts";
+import { PRIORITY } from "../../api/request_queue";
+import Queued_Image from "./Queued_Image";
 
 function PopularCategories() {
-    const categories = CATEGORY_ORDER.map((name) => {
-        const inCategory = products.filter((p) => p.category === name);
-        return {
-            name,
-            count: inCategory.length,
-            cover: inCategory[0]?.photo,
-        };
-    });
+    const { all_products, is_loading, error, reload } = useProducts();
+    const categoryNames = [...new Set(all_products.map((p) => p.category))];
+    const categories = categoryNames.sort((a, b) => CATEGORY_ORDER.indexOf(a) - CATEGORY_ORDER.indexOf(b))
+        .map((name) => {
+            const list = all_products.filter((p) => p.category === name);
+            return { name, count: list.length, cover: list[0]?.photo };
+        });
 
     return (
-        <section className="bg-white">
-            <div className="mx-auto max-w-6xl px-6 py-16">
-                <div className="flex flex-col gap-2">
-                    <p className="text-xs font-medium uppercase tracking-[0.2em] text-gray-500">
-                        Категории
-                    </p>
-                    <h2 className="text-3xl font-medium tracking-tight text-gray-950">
-                        Популярные категории
-                    </h2>
+        <section className="section-cream" id="categories">
+            <div className="container-wide section-space">
+                <div className="section-heading">
+                    <div><span className="eyebrow">НАШ АССОРТИМЕНТ</span><h2 className="font-display section-title">Что у нас <em>вкусного?</em></h2></div>
+                    <p>От первого утреннего круассана до любимого пирога к вечернему чаю.</p>
                 </div>
-
-                <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
-                    {categories.map((category) => (
-                        <Link
-                            key={category.name}
-                            to={`/products?category=${encodeURIComponent(category.name)}`}
-                            className="group relative block aspect-[4/3] overflow-hidden rounded-2xl bg-gray-100"
-                        >
-                            {category.cover && (
-                                <img
-                                    src={photoUrl(category.cover, 600)}
-                                    alt=""
-                                    loading="lazy"
-                                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                                />
-                            )}
-
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-
-                            <div className="absolute bottom-4 left-4 right-4 text-white">
-                                <p className="text-base font-semibold">{category.name}</p>
-                                <p className="text-xs text-white/80">
-                                    Товаров: {category.count}
-                                </p>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
+                {error ? <div className="empty-state"><p>{error}</p><button type="button" className="btn-outline mt-3" onClick={reload}>Повторить</button></div> :
+                    <div className="category-grid">
+                        {(is_loading ? CATEGORY_ORDER.map((name) => ({ name, count: 0 })) : categories).map((category, index) => (
+                            is_loading ? <div key={category.name} className="category-tile skeleton" /> :
+                            <Link key={category.name} className="category-tile" to={`/products?category=${encodeURIComponent(category.name)}`}>
+                                <Queued_Image src={photoUrl(category.cover, 600)} alt={category.name} label={`Категория: ${category.name}`} priority={index < 2 ? PRIORITY.NORMAL : PRIORITY.LOW} img_class_name="category-image" />
+                                <span className="category-gradient" />
+                                <span className="category-index">0{index + 1} / 0{categories.length}</span>
+                                <span className="category-details"><strong className="font-display">{category.name}</strong><small>{CATEGORY_DESCRIPTIONS[category.name] || `${category.count} товаров`}</small></span>
+                                <span className="category-arrow">↗</span>
+                            </Link>
+                        ))}
+                    </div>
+                }
             </div>
         </section>
     );
 }
-
 export default PopularCategories;

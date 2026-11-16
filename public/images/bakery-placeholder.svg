@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="690" viewBox="0 0 900 690">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#efddc5"/><stop offset="1" stop-color="#d3ad86"/></linearGradient><linearGradient id="crust" x2="0" y2="1"><stop stop-color="#d89a55"/><stop offset="1" stop-color="#a96834"/></linearGradient></defs>
+<rect width="900" height="690" fill="url(#bg)"/>
+<circle cx="725" cy="128" r="166" fill="#f9e9d3" opacity=".3"/><circle cx="111" cy="578" r="209" fill="#c7966a" opacity=".15"/>
+<ellipse cx="450" cy="514" rx="301" ry="48" fill="#8f5b36" opacity=".16"/>
+<path d="M190 449c-25-121 91-227 250-232 175-7 284 97 270 228-107 79-387 86-520 4Z" fill="url(#crust)" stroke="#b77841" stroke-width="8"/>
+<path d="M235 417c16-64 89-122 173-144m-47 168c5-89 60-163 141-194m-9 204c29-88 81-136 144-161" fill="none" stroke="#f4d7ac" stroke-width="27" stroke-linecap="round" opacity=".9"/>
+<path d="M235 417c16-64 89-122 173-144m-47 168c5-89 60-163 141-194m-9 204c29-88 81-136 144-161" fill="none" stroke="#f9ecd2" stroke-width="7" stroke-linecap="round"/>
+<text x="450" y="600" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="42" fill="#794b31">Тёплый хлеб</text>
+</svg>
